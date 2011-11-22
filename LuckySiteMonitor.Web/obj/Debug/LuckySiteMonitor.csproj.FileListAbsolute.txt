@@ -1,0 +1,7 @@
+C:\Users\frank\Projects\LuckySiteMonitor\LuckySiteMonitor\bin\LuckySiteMonitor.dll
+C:\Users\frank\Projects\LuckySiteMonitor\LuckySiteMonitor\bin\LuckySiteMonitor.pdb
+C:\Users\frank\Projects\LuckySiteMonitor\LuckySiteMonitor\bin\EntityFramework.dll
+C:\Users\frank\Projects\LuckySiteMonitor\LuckySiteMonitor\bin\EntityFramework.xml
+C:\Users\frank\Projects\LuckySiteMonitor\LuckySiteMonitor\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\frank\Projects\LuckySiteMonitor\LuckySiteMonitor\obj\Debug\LuckySiteMonitor.dll
+C:\Users\frank\Projects\LuckySiteMonitor\LuckySiteMonitor\obj\Debug\LuckySiteMonitor.pdb
