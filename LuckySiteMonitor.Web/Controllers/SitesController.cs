@@ -5,99 +5,56 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using LuckySiteMonitor.DataAccess;
 using LuckySiteMonitor.Entities;
 using LuckySiteMonitor.Web.Models;
 
-namespace LuckySiteMonitor.Web.Controllers
-{   
-    public class SitesController : Controller
-    {
-        private LuckySiteMonitorWebContext context = new LuckySiteMonitorWebContext();
+namespace LuckySiteMonitor.Web.Controllers {
+    public class SitesController : Controller {
 
-        //
-        // GET: /Sites/
+        private readonly SiteRepository _siteRepository;
 
-        public ViewResult Index()
-        {
-            return View(context.Sites.ToList());
+        public SitesController() {
+            _siteRepository = new SiteRepository();
         }
 
-        //
-        // GET: /Sites/Details/5
+        public ViewResult Index() {
+            var sites = _siteRepository.Get();
+            return View(sites);
+        }
 
-        public ViewResult Details(int id)
-        {
-            Site site = context.Sites.Single(x => x.Id == id);
+        public ViewResult Details(int id) {
+            Site site = _siteRepository.Get(id);
             return View(site);
         }
 
-        //
-        // GET: /Sites/Create
-
-        public ActionResult Create()
-        {
+        public ActionResult Create() {
             return View();
-        } 
-
-        //
-        // POST: /Sites/Create
+        }
 
         [HttpPost]
-        public ActionResult Create(Site site)
-        {
-            if (ModelState.IsValid)
-            {
-                context.Sites.Add(site);
-                context.SaveChanges();
-                return RedirectToAction("Index");  
+        public ActionResult Create(Site site) {
+            if (ModelState.IsValid) {
+                var id = _siteRepository.Insert(site);
+                return RedirectToAction("Details", new { id });
             }
 
             return View(site);
         }
-        
-        //
-        // GET: /Sites/Edit/5
- 
-        public ActionResult Edit(int id)
-        {
-            Site site = context.Sites.Single(x => x.Id == id);
+
+        public ActionResult Edit(int id) {
+            Site site = _siteRepository.Get(id);
             return View(site);
         }
 
-        //
-        // POST: /Sites/Edit/5
-
         [HttpPost]
-        public ActionResult Edit(Site site)
-        {
-            if (ModelState.IsValid)
-            {
-                context.Entry(site).State = EntityState.Modified;
-                context.SaveChanges();
-                return RedirectToAction("Index");
+        public ActionResult Edit(Site site) {
+            if (ModelState.IsValid) {
+                _siteRepository.Update(site);
+                return RedirectToAction("Details", new { Id = site.Id });
             }
             return View(site);
         }
 
-        //
-        // GET: /Sites/Delete/5
- 
-        public ActionResult Delete(int id)
-        {
-            Site site = context.Sites.Single(x => x.Id == id);
-            return View(site);
-        }
-
-        //
-        // POST: /Sites/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Site site = context.Sites.Single(x => x.Id == id);
-            context.Sites.Remove(site);
-            context.SaveChanges();
-            return RedirectToAction("Index");
-        }
     }
 }
