@@ -7,5 +7,6 @@ namespace LuckySiteMonitor.Entities {
     public class Elmah {
         public int Id { get; set; }
         public string ConnectionString { get; set; }
+        public string ApplicationFilter { get; set; }
     }
 }
