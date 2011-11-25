@@ -20,8 +20,8 @@ namespace LuckySiteMonitor.DataAccess {
         }
 
         private class Sql {
-            public const string GetAll = "select * from Sites";
-            public const string GetById = "select * from Sites where Id = @id";
+            public const string GetAll = "select * from Sites left outer join Elmah on Sites.Id = Elmah.SiteId";
+            public const string GetById = GetAll + " where Sites.Id = @id";
             public const string Insert = "insert into Sites (Name, Description, CreatedOn, ModifiedOn) values (@Name, @Description, @CreatedOn, null)";
             public const string GetLast = "select * from Sites where Id = @@Identity";
             public const string Update = "update Sites set Name = @Name, Description = @Description, ModifiedOn = @ModifiedOn, IsActive = @IsActive where Id = @Id";

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="DataAccess\SiteRepository.cs" />
     <Compile Include="Dapper\SqlMapper.cs" />
+    <Compile Include="Entities\Elmah.cs" />
     <Compile Include="Entities\Site.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

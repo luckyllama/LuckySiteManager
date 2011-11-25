@@ -1,13 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using LuckySiteMonitor.DataAccess;
 using LuckySiteMonitor.Entities;
-using LuckySiteMonitor.Web.Models;
 
 namespace LuckySiteMonitor.Web.Controllers {
     public class SitesController : Controller {
