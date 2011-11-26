@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -43,9 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\SiteMonitorContext.cs" />
     <Compile Include="DataAccess\SiteRepository.cs" />
     <Compile Include="Dapper\SqlMapper.cs" />
-    <Compile Include="Entities\Elmah.cs" />
+    <Compile Include="Entities\ElmahConfig.cs" />
     <Compile Include="Entities\ElmahLog.cs" />
     <Compile Include="Entities\Site.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

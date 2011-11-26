@@ -1,0 +1,12 @@
+﻿@model LuckySiteMonitor.Entities.ElmahConfig
+
+@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "elmah-" + Model.Id })) {
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.Id)
+    @Html.Partial("_CreateOrEdit", Model)
+    
+    <button type="submit">Update</button>
+    @Ajax.ActionLink("Cancel", "Details", "Elmah", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "elmah-" + Model.Id })
+
+} 

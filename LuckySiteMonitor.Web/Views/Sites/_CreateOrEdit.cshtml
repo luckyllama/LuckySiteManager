@@ -27,25 +27,5 @@
         @Html.ValidationMessageFor(model => model.IsActive)
     </div>
 
-</fieldset>
-
-<fieldset>
-    <legend>Elmah</legend>
-
-    <div class="editor-label">
-        @Html.LabelFor(model => model.Elmah.ConnectionString)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.Elmah.ConnectionString)
-        @Html.ValidationMessageFor(model => model.Elmah.ConnectionString)
-    </div>
-    
-    <div class="editor-label">
-        @Html.LabelFor(model => model.Elmah.ApplicationFilter)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.Elmah.ApplicationFilter)
-        @Html.ValidationMessageFor(model => model.Elmah.ApplicationFilter)
-    </div>
-
+    @Html.HiddenFor(model => model.CreatedOn)
 </fieldset>

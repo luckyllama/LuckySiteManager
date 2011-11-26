@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace LuckySiteMonitor.Entities {
-    public class Elmah {
+    public class ElmahConfig {
         public int Id { get; set; }
         public string ConnectionString { get; set; }
         public string ApplicationFilter { get; set; }

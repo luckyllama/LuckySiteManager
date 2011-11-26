@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Web.Mvc;
 using LuckySiteMonitor.DataAccess;
 using LuckySiteMonitor.Entities;
@@ -5,19 +7,19 @@ using LuckySiteMonitor.Entities;
 namespace LuckySiteMonitor.Web.Controllers {
     public class SitesController : Controller {
 
-        private readonly SiteRepository _siteRepository;
+        private readonly SiteMonitorContext _context;
 
         public SitesController() {
-            _siteRepository = new SiteRepository();
+            _context = new SiteMonitorContext();
         }
 
         public ViewResult Index() {
-            var sites = _siteRepository.Get();
+            var sites = _context.Sites.ToList();
             return View(sites);
         }
 
         public ViewResult Details(int id) {
-            Site site = _siteRepository.Get(id);
+            var site = _context.Sites.Single(s => s.Id == id);
             return View(site);
         }
 
@@ -28,23 +30,27 @@ namespace LuckySiteMonitor.Web.Controllers {
         [HttpPost]
         public ActionResult Create(Site site) {
             if (ModelState.IsValid) {
-                var id = _siteRepository.Insert(site);
-                return RedirectToAction("Details", new { id });
+                site.CreatedOn = DateTime.Now;
+                _context.Sites.Add(site);
+                _context.SaveChanges();
+                return RedirectToAction("Details", new { site.Id });
             }
 
             return View(site);
         }
 
         public ActionResult Edit(int id) {
-            Site site = _siteRepository.Get(id);
+            var site = _context.Sites.Single(s => s.Id == id);
             return View(site);
         }
 
         [HttpPost]
         public ActionResult Edit(Site site) {
             if (ModelState.IsValid) {
-                _siteRepository.Update(site);
-                return RedirectToAction("Details", new { Id = site.Id });
+                site.ModifiedOn = DateTime.Now;
+                _context.Entry(site).State = System.Data.EntityState.Modified;
+                _context.SaveChanges();
+                return RedirectToAction("Details", new { site.Id });
             }
             return View(site);
         }

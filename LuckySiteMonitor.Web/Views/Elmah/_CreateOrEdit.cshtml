@@ -1,0 +1,17 @@
+﻿@model LuckySiteMonitor.Entities.ElmahConfig
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.ConnectionString)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.ConnectionString)
+    @Html.ValidationMessageFor(model => model.ConnectionString)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.ApplicationFilter)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.ApplicationFilter)
+    @Html.ValidationMessageFor(model => model.ApplicationFilter)
+</div>

@@ -30,17 +30,17 @@ namespace LuckySiteMonitor.DataAccess {
 
         public IEnumerable<Site> Get() {
             using (var conn = CreateConnection()) {
-                var result = conn.Query<Site, Elmah, Site>(Sql.GetAll, (site, elmah) => { site.Elmah = elmah; return site; });
+                //var result = conn.Query<Site, IEnumerable<Elmah>, Site>(Sql.GetAll, (site, elmah) => { site.Elmah = elmah; return site; });
                 conn.Close();
-                return result;
+                return null;
             }
         }
 
         public Site Get(int id) {
             using (var conn = CreateConnection()) {
-                var result = conn.Query<Site, Elmah, Site>(Sql.GetById, (site, elmah) => { site.Elmah = elmah; return site; }, new { id });
+                //var result = conn.Query<Site, IEnumerable<Elmah>, Site>(Sql.GetById, (site, elmah) => { site.Elmah = elmah; return site; }, new { id });
                 conn.Close();
-                return result.FirstOrDefault();
+                return null;
             }
         }
 
