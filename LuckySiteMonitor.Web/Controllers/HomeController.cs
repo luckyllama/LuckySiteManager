@@ -7,15 +7,15 @@ using LuckySiteMonitor.DataAccess;
 
 namespace LuckySiteMonitor.Web.Controllers {
     public class HomeController : Controller {
-
-        private readonly SiteRepository _siteRepository;
+        
+        private readonly SiteMonitorContext _context;
 
         public HomeController() {
-            _siteRepository = new SiteRepository();
+            _context = new SiteMonitorContext();
         }
 
         public ActionResult Index() {
-            var sites = _siteRepository.Get();
+            var sites = _context.Sites.ToList();
             if (!sites.Any()) {
                 return RedirectToAction("Create", "Sites");
             }

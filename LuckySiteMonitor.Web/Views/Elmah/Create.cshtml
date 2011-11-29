@@ -9,6 +9,11 @@
         @Html.Hidden("SiteId", (int) ViewBag.SiteId)
 	    @Html.Partial("_CreateOrEdit", Model)
     
+        if (!string.IsNullOrEmpty(ViewBag.TestResult as string)) {
+            <div id="test-elmah-@Model.Id">@Html.Raw(ViewBag.TestResult as string)</div>
+        }
+    
+        <button type="submit" name="isTest" value="True">Test</button>
         <button type="submit">Save</button>
         @*@Ajax.ActionLink("Cancel", "Details", "Elmah", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "new-elmah-config-" + guid })*@
 
