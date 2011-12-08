@@ -1,15 +1,12 @@
 ﻿@model LuckySiteMonitor.Entities.ElmahConfig
 
-<div id="elmah-@Model.Id">
-    <div class="display-label">ConnectionString</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ConnectionString)
+<div id="elmah-config-@Model.Id">
+    <h3>@Model.Name</h3>
+
+    <div class="connection-info">
+        <span class="connection-string">@Model.ConnectionString</span>
+        <span class="application-filter">@Model.ApplicationFilter</span>
     </div>
 
-    <div class="display-label">ApplicationFilter</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ApplicationFilter)
-    </div>
-
-    @Ajax.ActionLink("Edit", "Edit", "Elmah", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "elmah-" + Model.Id })
+    @Ajax.ActionLink("Edit", "Edit", "Elmah", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "elmah-config-" + Model.Id })
 </div>

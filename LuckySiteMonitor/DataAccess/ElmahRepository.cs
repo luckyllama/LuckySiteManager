@@ -25,7 +25,6 @@ namespace LuckySiteMonitor.DataAccess {
             public const string Test = "select top (1) ErrorId from ELMAH_Error where Application = @application or @application is null";
             public const string GetAll = "select * from Sites left outer join Elmah on Sites.Id = Elmah.SiteId";
             public const string GetById = GetAll + " where Sites.Id = @id";
-            public const string Insert = "insert into Sites (Name, Description, CreatedOn, ModifiedOn) values (@Name, @Description, @CreatedOn, null)";
             public const string GetLast = "select * from Sites where Id = @@Identity";
             public const string Update = "update Sites set Name = @Name, Description = @Description, ModifiedOn = @ModifiedOn, IsActive = @IsActive where Id = @Id";
             public const string Delete = "delete from Sites where Id = @Id";
@@ -49,6 +48,8 @@ namespace LuckySiteMonitor.DataAccess {
             }
         }
 
+
+
         public IEnumerable<Site> Get() {
             using (var conn = CreateConnection()) {
                 //var result = conn.Query<Site, IEnumerable<Elmah>, Site>(Sql.GetAll, (site, elmah) => { site.Elmah = elmah; return site; });
@@ -68,7 +69,7 @@ namespace LuckySiteMonitor.DataAccess {
         public int Insert(Site site) {
             using (var conn = CreateConnection()) {
                 site.CreatedOn = DateTime.Now;
-                conn.Execute(Sql.Insert, site);
+                //conn.Execute(Sql.Insert, site);
                 var result = conn.Query<Site>(Sql.GetLast);
                 conn.Close();
                 return result.First().Id;

@@ -4,12 +4,8 @@
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" />
-    <script src="@Url.Content("~/Scripts/jquery-1.7.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/modernizr-2.0.6-development-only.js")"></script>
-    <script src="@Url.Content("~/Scripts/MicrosoftAjax.debug.js")"></script>  
-    <script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.debug.js")"></script>
-
+    
+    <script src="@Url.Content("~/Content/Scripts/lib/modernizr-2.0.6-development-only.js")"></script>
 </head>
 <body>
     <div class="page">
@@ -33,5 +29,13 @@
         <footer>
         </footer>
     </div>
+
+    <script src="@Url.Content("~/Content/Scripts/lib/jquery-1.7.min.js")"></script>
+    <script src="@Url.Content("~/Content/Scripts/lib/jquery.unobtrusive-ajax.min.js")"></script>
+    <script src="@Url.Content("~/Content/Scripts/lib/MicrosoftAjax.debug.js")"></script>  
+    <script src="@Url.Content("~/Content/Scripts/lib/MicrosoftMvcAjax.debug.js")"></script>
+    <script src="@Url.Content("~/Content/Scripts/lib/underscore.js")"></script>
+    <script src="@Url.Content("~/Content/Scripts/lib/backbone.js")"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>
