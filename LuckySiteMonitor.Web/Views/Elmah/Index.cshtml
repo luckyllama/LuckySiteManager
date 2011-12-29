@@ -1,0 +1,44 @@
+﻿@model Site
+
+@{
+    ViewBag.Title = "Elmah";
+}
+
+@Html.Partial("Subnavigation", new SiteSubnavigationViewModel { Site = Model, ActiveLink = SitePageType.Elmah })
+
+<h2>Elmah</h2>
+
+
+<div id="elmah-list">
+    <h2>Elmah Information</h2>
+    
+    @foreach (var elmah in Model.Elmah) {
+        <div class="elmah-information">
+            <div class="elmah">
+            
+                <h3>@elmah.Name</h3>
+
+                <div class="connection-info">
+                    <span class="connection-string">@elmah.ConnectionString</span>
+                    <span class="application-filter">@elmah.ApplicationFilter</span>
+                    @Html.ActionLink("Edit", "Edit", "Elmah", new { siteId = Model.Id, id = elmah.Id }, null)
+                </div>
+            
+                <div class="elmah-chart-area" data-id="@elmah.Id">
+                    @*loaded via ajax*@
+                </div>
+            </div>
+        
+        </div>
+    }
+    
+    <script type="text/template" id="elmah-chart-template">
+        <h4><%= name %></h4>
+        <div class="chart">
+        
+        </div>
+    </script>
+
+    @Html.ActionLink("Create New", "Create", "Elmah", new { siteId = Model.Id }, null)
+
+</div>

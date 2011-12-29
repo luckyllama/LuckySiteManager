@@ -1,0 +1,9 @@
+﻿@model Site
+
+@{
+    ViewBag.Title = "Ping";
+}
+
+@Html.Partial("Subnavigation", new SiteSubnavigationViewModel { Site = Model, ActiveLink = SitePageType.Ping })
+
+<h2>ping</h2>

@@ -1,22 +1,22 @@
-@model LuckySiteMonitor.Entities.Site
+@model Site
 
 @{
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+@Html.Partial("Subnavigation", new SiteSubnavigationViewModel { Site = Model })
+
+<h2>Edit @Model.Name</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
+    @Html.HttpMethodOverride(HttpVerbs.Put)
     @Html.HiddenFor(model => model.Id)
 	@Html.Partial("_CreateOrEdit", Model)
 
     <p>
         <input type="submit" value="Save" />
+        @Html.ActionLink("Cancel", "Details", "Sites", new { id = Model.Id }, null)
     </p>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

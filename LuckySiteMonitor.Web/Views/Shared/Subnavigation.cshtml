@@ -1,0 +1,15 @@
+﻿@model SiteSubnavigationViewModel
+
+<nav>
+    <ul>
+        <li class="@(Model.Is(SitePageType.Summary) ? "active" : "")"> 
+            @Html.ActionLink("Summary", "Details", "Sites", new { id = Model.Site.Id }, null) 
+        </li>
+        <li class="@(Model.Is(SitePageType.Ping) ? "active" : "")"> 
+            @Html.ActionLink("Ping", "Index", "Ping", new { id = Model.Site.Id }, null) 
+        </li>
+        <li class="@(Model.Is(SitePageType.Elmah) ? "active" : "")"> 
+            @Html.ActionLink("Elmah", "Index", "Elmah", new { id = Model.Site.Id }, null) 
+        </li>
+    </ul>
+</nav>

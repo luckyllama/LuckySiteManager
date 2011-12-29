@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Data.SqlServerCe;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Dapper;
+using AttributeRouting;
 using Elmah;
 using LuckySiteMonitor.DataAccess;
 using LuckySiteMonitor.Entities;
 
 namespace LuckySiteMonitor.Web.Controllers {
+    [RouteArea("sites")]
     public class ElmahController : Controller {
         private readonly SiteMonitorContext _context;
 
@@ -16,49 +16,52 @@ namespace LuckySiteMonitor.Web.Controllers {
             _context = new SiteMonitorContext();
         }
 
-        public ActionResult Create(int siteId) {
-            ViewBag.SiteId = siteId;
-            return PartialView();
+        [GET("{id}/elmah")]
+        public ViewResult Index(int id) {
+            var site = _context.Sites.Single(s => s.Id == id);
+            return View(site);
         }
 
-        [HttpPost]
-        public ActionResult Create(int siteId, ElmahConfig elmah, bool? isTest) {
+        [GET("{siteId}/elmah/create")]
+        public ActionResult Create(int siteId) {
             ViewBag.SiteId = siteId;
+            return View();
+        }
 
+        [POST("{siteId}/elmah/create")]
+        public ActionResult Create(int siteId, ElmahConfig elmah) {
+            ViewBag.SiteId = siteId;
+            // todo: validate connection string
             if (ModelState.IsValid) {
-                if (isTest.HasValue && isTest.Value) {
-                    ViewBag.TestResult = Test(elmah);
-                    return PartialView(elmah);
-                }
-
                 var site = _context.Sites.Find(siteId);
                 site.Elmah.Add(elmah);
                 _context.SaveChanges();
-                return PartialView("Details", elmah);
+                return RedirectToAction("Index", "Elmah", new { id = siteId });
             }
 
-            return PartialView(elmah);
+            return View(elmah);
         }
 
-        public ActionResult Edit(int id) {
-            var elmah = _context.Elmah.Single(s => s.Id == id);
-            return PartialView(elmah);
+        [GET("{siteId}/elmah/edit/{id}")]
+        public ActionResult Edit(int siteId, int id) {
+            var config = _context.Elmah.Single(s => s.Id == id);
+            ViewBag.SiteId = siteId;
+            return View(config);
         }
 
-        [HttpPost]
-        public ActionResult Edit(ElmahConfig elmah, bool? isTest) {
+        [PUT("{siteId}/elmah/edit/{id}")]
+        public ActionResult Edit(ElmahConfig elmah, int siteId) {
+            ViewBag.SiteId = siteId;
+            // todo: validate connection string
             if (ModelState.IsValid) {
-                if (isTest.HasValue && isTest.Value) {
-                    ViewBag.TestResult = Test(elmah);
-                    return PartialView(elmah);
-                }
-
                 _context.Entry(elmah).State = System.Data.EntityState.Modified;
                 _context.SaveChanges();
-                return PartialView("Details", elmah);
+                return RedirectToAction("Index", "Elmah", new { id = siteId });
             }
-            return PartialView(elmah);
+            return View(elmah);
         }
+
+        // todo: delete
 
         private static string Test(ElmahConfig elmah) {
             ElmahRepository repository = new ElmahRepository(elmah);
@@ -85,11 +88,6 @@ namespace LuckySiteMonitor.Web.Controllers {
                 builder.InnerHtml = "An unexpected error occured. Please check your connection string and try again.";
                 return builder.ToString();
             }
-        }
-
-        public ActionResult Details(int id) {
-            var elmah = _context.Elmah.Single(s => s.Id == id);
-            return PartialView(elmah);
         }
 
 #if DEBUG

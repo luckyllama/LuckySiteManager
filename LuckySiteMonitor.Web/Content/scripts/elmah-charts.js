@@ -21,20 +21,29 @@ var ElmahCharts = Backbone.Collection.extend({
 
 var ElmahChartView = Backbone.View.extend({
     initialize: function () {
-
+        this.model = new ElmahChart;
     },
     render: function () {
-        var template = _.template($("#elmah-chart-template").html(), { name: "chart..." });
+        var template = _.template($("#elmah-chart-template").html(), { name: this.model.get("type").name });
+        
         console.log(this);
         this.el.html(template);
     }
 });
 
+var ElmahView = Backbone.View.extend({
+    initialize: function () { },
+    render: function () {
+        var chartView = new ElmahChartView({ el: this.$(".elmah-chart-area") });
+        chartView.render();
+    }
+});
+
 var SiteRouter = Backbone.Router.extend({
     initialize: function () {
-        $("#elmah-list .elmah-information .elmah-chart-area").each(function () {
-            var chartView = new ElmahChartView({ el: $(this) });
-            chartView.render();
+        $("#elmah-list .elmah-information").each(function () {
+            var view = new ElmahView({ el: $(this) });
+            view.render();
         });
     },
     routes: {

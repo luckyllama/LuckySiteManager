@@ -1,17 +1,18 @@
-﻿@model LuckySiteMonitor.Entities.ElmahConfig
+﻿@model ElmahConfig
 
-@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "elmah-" + Model.Id })) {
-    @Html.ValidationSummary(true)
-
-    @Html.HiddenFor(model => model.Id)
-    @Html.Partial("_CreateOrEdit", Model)
-
-    if (!string.IsNullOrEmpty(ViewBag.TestResult as string)) {
-        <div id="test-elmah-@Model.Id">@Html.Raw(ViewBag.TestResult as string)</div>
-    }
+<div id="elmah">
+    <h2>Edit Elmah Information</h2>
     
-    <button type="submit" name="isTest" value="True">Test</button>
-    <button type="submit" name="Edit">Update</button>
-    @Ajax.ActionLink("Cancel", "Details", "Elmah", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "elmah-" + Model.Id })
+    @using (Html.BeginForm()) {
+        @Html.ValidationSummary(true)
+    
+        @Html.HttpMethodOverride(HttpVerbs.Put)
+        @Html.HiddenFor(model => model.Id)
 
-} 
+        @Html.Partial("_CreateOrEdit", Model)
+         
+        <button type="submit">Submit</button>
+        
+        @Html.ActionLink("Cancel", "Index", "Elmah", new { id = ViewBag.SiteId }, null)
+    }
+</div>

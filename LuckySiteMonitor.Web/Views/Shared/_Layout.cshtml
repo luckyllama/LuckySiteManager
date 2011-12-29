@@ -3,18 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
-    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/content/style/normalize.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/content/style/site.css")" rel="stylesheet" />
     
     <script src="@Url.Content("~/Content/Scripts/lib/modernizr-2.0.6-development-only.js")"></script>
 </head>
 <body>
-    <div class="page">
+    <div id="page">
         <header>
             <div id="title">
-                <h1>My MVC Application</h1>
-            </div>
-            <div id="logindisplay">
-                @Html.Partial("_LogOnPartial")
+                <h1>helicopter</h1>
             </div>
             <nav>
                 <ul id="menu">

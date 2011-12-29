@@ -1,46 +1,13 @@
-@model LuckySiteMonitor.Entities.Site
-
+﻿@model Site
+           
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Summary";
 }
 
-    <h2>@Model.Name</h2>
+@Html.Partial("Subnavigation", new SiteSubnavigationViewModel { Site = Model, ActiveLink = SitePageType.Summary })
 
-    <div class="description">@Model.Description</div>
+<h2>@Model.Name</h2>
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="description">@Model.Description</div>
 
-<div id="elmah-list">
-    <h2>Elmah Information</h2>
-    
-    @foreach (var elmah in Model.Elmah) {
-        <div class="elmah-information">
-            <div class="elmah">
-                @Html.Partial("~/Views/Elmah/Details.cshtml", elmah)
-            
-                <div class="elmah-chart-area">
-                    @*loaded via ajax*@
-                </div>
-            </div>
-        
-        </div>
-    }
-    <div id="new-elmah-config"></div>
-    
-    <script type="text/template" id="elmah-chart-template">
-        <h4><%= name %></h4>
-    </script>
-
-    @Ajax.ActionLink("New", "Create", "Elmah", new { siteId = Model.Id }, new AjaxOptions { UpdateTargetId = "elmah-configs", InsertionMode = InsertionMode.InsertAfter })
-
-</div>
-
-@section scripts {
-    <script src="@Url.Content("~/content/scripts/jqplot/plugins/jqplot.highlighter.min.js")"></script>
-    <script src="@Url.Content("~/content/scripts/jqplot/plugins/jqplot.cursor.min.js")"></script>
-    <script src="@Url.Content("~/content/scripts/jqplot/plugins/jqplot.dateAxisRenderer.min.js")"></script>
-    <script src="@Url.Content("~/content/scripts/elmah-charts.js")"></script>
-}
+@Html.ActionLink("Edit", "Edit", "Sites", new { id = Model.Id }, null)
